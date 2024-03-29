@@ -15,17 +15,17 @@ import { ROLES_KEY } from "./roles-auth.decorator";
 export class RolesGuard implements CanActivate {
   constructor(
     private JwtService: JwtService,
-    private reflector: Reflector
+    private reflector: Reflector,
   ) {}
 
   canActivate(
-    context: ExecutionContext
+    context: ExecutionContext,
   ): boolean | Promise<boolean> | Observable<boolean> {
     try {
-      const requiredRoles = this.reflector.getAllAndOverride<string[]>(ROLES_KEY, [
-        context.getHandler(),
-        context.getClass(),
-      ]);
+      const requiredRoles = this.reflector.getAllAndOverride<string[]>(
+        ROLES_KEY,
+        [context.getHandler(), context.getClass()],
+      );
       if (!requiredRoles) {
         return true;
       }
@@ -44,8 +44,7 @@ export class RolesGuard implements CanActivate {
       req.user = user;
       return user.roles.some((role) => requiredRoles.includes(role.value));
     } catch (e) {
-      throw new HttpException(
-        "Нет доступа", HttpStatus.FORBIDDEN);
+      throw new HttpException("Нет доступа", HttpStatus.FORBIDDEN);
     }
   }
 }

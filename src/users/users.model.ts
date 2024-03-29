@@ -31,18 +31,21 @@ export class User extends Model<User, UserCreationAttrs> {
   @ApiProperty({ example: "Вика", description: "Имя" })
   @Column({
     type: DataType.STRING,
-    allowNull: false
+    allowNull: false,
   })
   name: string;
 
   @ApiProperty({ example: "Шевченко", description: "Фамилия" })
   @Column({
     type: DataType.STRING,
-    allowNull: false
+    allowNull: false,
   })
   surname: string;
 
-  @ApiProperty({ example: "lorem ipsum dolor sit amet consectetur adipisicing elit", description: "Описание" })
+  @ApiProperty({
+    example: "lorem ipsum dolor sit amet consectetur adipisicing elit",
+    description: "Описание",
+  })
   @Column({
     type: DataType.STRING(1000),
   })
@@ -87,5 +90,5 @@ export class User extends Model<User, UserCreationAttrs> {
   roles: Role[];
 
   @HasMany(() => Post)
-    posts: Post[];
+  posts: Post[];
 }
